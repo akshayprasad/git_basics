@@ -222,3 +222,17 @@ color.branch=auto
 core.editor=vim
 merge.tool=vimdiff
 ```
+
+## Git - Life Cycle
+
+<ul>
+<li>Clone the git repository as the working copy.</li>
+<li>Modify the working copy.</li>
+<li>Review the changes before commit.</li>
+<li>Commit the changes and push the code to the remote repository.</li>
+<li>Commit the changes and feels like changing again, modify the changes, commit again and push the changes.</li>
+</ul>
+
+<p style ="align:center;">
+<img src="https://upload.wikimedia.org/wikipedia/commons/2/29/Git_data_flow.png" alt="Git Life Cycle"></img>
+</p>

@@ -148,7 +148,7 @@ URL represents the location of the Git repository. Git URL is stored in config f
 [sudo] password for ubuntu:
 
 [ubuntu ~]$ git --version
-git version 1.8.1.2
+git version 2.15.1
 ```
 
 ### Customize Git Environment

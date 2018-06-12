@@ -79,3 +79,19 @@ The real choice between using one type or the other is organizational -- if your
 <p style="align: center;">
 <img src="https://reganmusic.files.wordpress.com/2016/07/gitflow.jpeg" alt="Algorithm git flow" />
 </p>
+
+
+### Example
+
+<p>I modified a file called test.js and want to push to the remote by staging and committing.</p>
+
+```js
+#First add the files
+git add test.js
+
+#adds file to the staging area
+git commit -m "Added test scenarios in the test.js file"
+
+#push to the remote server now
+git push origin master
+```

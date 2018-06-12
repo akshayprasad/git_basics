@@ -46,3 +46,32 @@ systems are designed with the intent that one repository is as good as any other
 <p>
 The real choice between using one type or the other is organizational -- if your project or organization wants centralized control, then a DVCS is a non-starter. If your developers are expected to work all over the country/world, without secure broadband connections to a central repository, then DVCS is probably your salvation.
 </p>
+
+## Advantages of Git
+<ol>
+<li>Free and open source</li>
+<li>Fast and small</li>
+<li>Implicit backup</li>
+<li>Security</li>
+<li>No need of powerful hardware</li>
+<li>Easier branching</li>
+</ol>
+
+### Security
+<p>Git uses a common cryptographic hash function called secure hash function (SHA1), to name and identify objects within its database. Every file and commit is check-summed and retrieved by its checksum at the time of checkout. It implies that, it is impossible to change file, date, and commit message and any other data from the Git database without knowing Git.</p>
+
+
+## DVCS Terminologies
+
+<h3>Local Repository </h3>
+<p>Every VCS tool provides a private workplace as a working copy. Developers make changes in their private workplace and after commit, these changes become a part of the repository. Git takes it one step further by providing them a private copy of the whole repository. Users can perform many operations with this repository such as add file, remove file, rename file, move file, commit changes, and many more.</p>
+
+<h3>Working Directory and Staging Area or Index</h3>
+<p>The working directory is the place where files are checked out. In other CVCS, developers generally make modifications and commit their changes directly to the repository. But Git uses a different strategy. Git doesn’t track each and every modified file. Whenever you do commit an operation, Git looks for the files present in the staging area. Only those files present in the staging area are considered for commit and not all the modified files.</p>
+
+### Basic flow:
+<ol>
+<li>User can modify the file in the local repository.</li>
+<li>Add the modified files to the staging area.</li>
+<li>And perform commit operation that moves the files from the staging area. After push operation, it stores the changes permanently to the Git repository.</li>
+</ol>

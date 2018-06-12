@@ -75,3 +75,7 @@ The real choice between using one type or the other is organizational -- if your
 <li>Add the modified files to the staging area.</li>
 <li>And perform commit operation that moves the files from the staging area. After push operation, it stores the changes permanently to the Git repository.</li>
 </ol>
+
+<p style="align: center;">
+<img src="https://reganmusic.files.wordpress.com/2016/07/gitflow.jpeg" alt="Algorithm git flow" />
+</p>

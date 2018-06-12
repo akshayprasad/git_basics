@@ -138,3 +138,87 @@ HEAD is a pointer, which always points to the latest commit in the branch. Whene
 
 ## URL
 URL represents the location of the Git repository. Git URL is stored in config file.
+
+## Git - Environment Setup
+
+### Installation of Git Client
+
+```js
+[ubuntu ~]$ sudo apt-get install git-core
+[sudo] password for ubuntu:
+
+[ubuntu ~]$ git --version
+git version 1.8.1.2
+```
+
+### Customize Git Environment
+<p>
+Git provides the git config tool, which allows you to set configuration variables. Git stores all global configurations in .gitconfig file, which is located in your home directory. To set these configuration values as global, add the --global option, and if you omit --global option, then your configurations are specific for the current Git repository.
+</p>
+
+<p>
+You can also set up system wide configuration. Git stores these values in the /etc/gitconfig file, which contains the configuration for every user and repository on the system. To set these values, you must have the root rights and use the --system option.
+</p>
+
+<h4>Setting username: </h4>
+
+```js
+$ git config --global user.name "Git user"
+```
+
+<h4>Setting email id: </h4>
+
+```js
+$ git config --global user.email "gituser@xyz.com"
+```
+
+<h4>Avoid merge commits for pulling: </h4>
+<p>
+You pull the latest changes from a remote repository, and if these changes are divergent, then by default Git creates merge commits. We can avoid this via following settings.
+</p>
+
+```js
+$ git config --global branch.autosetuprebase always
+```
+
+<h4>Color highlighting: </h4>
+<p>
+The following commands enable color highlighting for Git in the console.
+</p>
+
+```js
+$ git config --global color.ui true
+
+$ git config --global color.status auto
+
+$ git config --global color.branch auto
+```
+
+<h4>Setting default editor: </h4>
+
+```js
+$ git config --global core.editor vim
+```
+
+<h4>Setting default merge tool: </h4>
+
+```js
+$ git config --global merge.tool vimdiff
+```
+
+<h4>Listing Git settings: </h4>
+
+```js
+$ git config --list
+
+//output
+user.name=Git user
+user.email=gituser@xyz.com
+push.default=nothing
+branch.autosetuprebase=always
+color.ui=true
+color.status=auto
+color.branch=auto
+core.editor=vim
+merge.tool=vimdiff
+```

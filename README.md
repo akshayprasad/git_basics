@@ -714,7 +714,7 @@ To remove the file <b>git rm</b> can be used.
 $ git rm test123.js
 rm 'src/test123.js'
 
-[tom@CentOS src]$ git commit -a -m "Removed the file successfully"
+$ git commit -a -m "Removed the file successfully"
 
 [master 5776472] Removed the file successfully
 1 files changed, 0 insertions(+), 0 deletions(-)
@@ -839,7 +839,7 @@ HEAD is now at 5776472 Removed the file successfully.
 Suppose gituser1 and Jerry gituser2 to tag their project code so that they can later access it easily.
 
 ### Create Tags
-Let us tag the current HEAD by using the <b>git tag</b> command. Tom provides a tag name with -a option and provides a tag message with –m option.
+Let us tag the current HEAD by using the <b>git tag</b> command. gituser1 provides a tag name with -a option and provides a tag message with –m option.
 
 ```js
 $ pwd
@@ -848,7 +848,7 @@ $ pwd
 $ git tag -a 'Release_1_0' -m 'Tagged basic string operation code' HEAD
 ```
 
-If you want to tag a particular commit, then use the appropriate COMMIT ID instead of the HEAD pointer. Tom uses the following command to push the tag into the remote repository.
+If you want to tag a particular commit, then use the appropriate COMMIT ID instead of the HEAD pointer. gituser1 uses the following command to push the tag into the remote repository.
 
 ```js
 $ git push origin tag Release_1_0

@@ -1021,3 +1021,33 @@ $ git branch
 * master
 wchar_support
 ```
+
+### Merge Two Branches
+
+```js
+$ git branch
+master
+* wchar_support
+
+$ git checkout master
+
+$ git merge origin/wchar_support
+
+Updating 5776472..64192f9
+Fast-forward
+src/test123.js | 10 ++++++++++
+1 files changed, 10 insertions(+), 0 deletions(-)
+
+```
+
+
+
+### Rebase Branches
+
+The Git rebase command is a branch merge command, but the difference is that it modifies the order of commits.
+
+The Git merge command tries to put the commits from other branches on top of the HEAD of the current local branch. For example, your local branch has commits A−>B−>C−>D and the merge branch has commits A−>B−>X−>Y, then git merge will convert the current local branch to something like A−>B−>C−>D−>X−>Y
+
+The Git rebase command tries to find out the common ancestor between the current local branch and the merge branch. It then pushes the commits to the local branch by modifying the order of commits in the current local branch. For example, if your local branch has commits A−>B−>C−>D and the merge branch has commits A−>B−>X−>Y, then Git rebase will convert the current local branch to something like A−>B−>X−>Y−>C−>D.
+
+When multiple developers work on a single remote repository, you cannot modify the order of the commits in the remote repository. In this situation, you can use rebase operation to put your local commits on top of the remote repository commits and you can push these changes.

@@ -840,7 +840,7 @@ HEAD is now at 5776472 Removed the file successfully.
 
 <p>Tag operation allows giving meaningful names to a specific version in the repository. </p>
 
-Suppose gituser1 and Jerry gituser2 to tag their project code so that they can later access it easily.
+Suppose gituser1 and gituser2 to tag their project code so that they can later access it easily.
 
 ### Create Tags
 Let us tag the current HEAD by using the <b>git tag</b> command. gituser1 provides a tag name with -a option and provides a tag message with –m option.

@@ -730,3 +730,189 @@ $ git push origin master
 
 ```
 
+## Remove Changes from Staging Area
+We have seen that when we perform an add operation, the files move from the local repository to the stating area. If a user accidently modifies a file and adds it into the staging area, he can revert his changes, by using the <b>git checkout</b> command.
+
+In Git, there is one HEAD pointer that always points to the latest commit. If you want to undo a change from the staged area, then you can use the git checkout command, but with the checkout command, you have to provide an additional parameter, i.e., the HEAD pointer. The additional commit pointer parameter instructs the git checkout command to reset the working tree and also to remove the staged changes.
+
+Let us suppose gituser modifies a file from his local repository. If we view the status of this file, it will show that the file was modified but not added into the staging area.
+
+```js
+$ pwd
+/home/gituser/gituser_repo/project/src
+
+$ git status -s
+M test123.js
+
+git add string_operations.c
+
+```
+
+Git status shows that the file is present in the staging area, now revert it by using the git checkout command and view the status of the reverted file.
+
+```js
+
+$ git checkout HEAD -- string_operations.c
+
+$ git status -s
+
+Nothing popups
+
+```
+
+<p style="align:center;">
+<img src="https://www.tutorialspoint.com/git/images/before_git_reset.png" alt="Git reset brief"/>
+</p>
+
+### Soft
+Each branch has a HEAD pointer, which points to the latest commit. If we use Git reset command with --soft option followed by commit ID, then it will reset the HEAD pointer only without destroying anything.
+
+<b>git/refs/heads/master</b> file stores the commit ID of the HEAD pointer. We can verify it by using the <b>git log -1</b> command.
+
+```js
+$ cat .git/refs/heads/master
+
+577647211ed44fe2ae479427a0668a4f12ed71a1
+
+```
+
+Now, view the latest commit ID, which will match with the above commit ID.
+
+```js
+$ git log -2
+```
+
+The above command will produce the following result.
+
+```js
+
+commit 577647211ed44fe2ae479427a0668a4f12ed71a1
+Author: gituser <gituser@xyz.com>
+Date: Wed Sep 11 10:21:20 2017 +0530
+
+Removed the file successfully
+
+
+commit 29af9d45947dc044e33d69b9141d8d2dad37cc62
+Author: gituser123 <gituser123@xyz.com>
+Date: Wed Sep 11 10:16:25 2017 +0530
+
+Added testPass function
+
+```
+
+<b>Let us reset the HEAD pointer.</b>
+
+```js
+$ git reset --soft HEAD~
+```
+
+<p>Now, we just reset the HEAD pointer back by one position. Let us check the contents of <b>.git/refs/heads/master</b> file.</p>
+
+```js
+$ cat .git/refs/heads/master
+
+29af9d45947dc044e33d69b9141d8d2dad37cc62
+
+```
+
+### mixed
+Git reset with --mixed option reverts those changes from the staging area that have not been committed yet. It reverts the changes from the staging area only. The actual changes made to the working copy of the file are unaffected. The default Git reset is equivalent to the git reset -- mixed.
+
+### hard
+If you use --hard option with the Git reset command, it will clear the staging area; it will reset the HEAD pointer to the latest commit of the specific commit ID and delete the local file changes too.
+
+
+If Git status is showing that the file is present in the staging area. Now, reset HEAD with -- hard option.
+
+```js
+$ git reset --hard 577647211ed44fe2ae479427a0668a4f12ed71a1
+
+HEAD is now at 5776472 Removed the file successfully.
+```
+
+
+## Git - Tag Operation
+
+<p>Tag operation allows giving meaningful names to a specific version in the repository. </p>
+
+Suppose gituser1 and Jerry gituser2 to tag their project code so that they can later access it easily.
+
+### Create Tags
+Let us tag the current HEAD by using the <b>git tag</b> command. Tom provides a tag name with -a option and provides a tag message with –m option.
+
+```js
+$ pwd
+/home/gituser/gituser_repo/project
+
+$ git tag -a 'Release_1_0' -m 'Tagged basic string operation code' HEAD
+```
+
+If you want to tag a particular commit, then use the appropriate COMMIT ID instead of the HEAD pointer. Tom uses the following command to push the tag into the remote repository.
+
+```js
+$ git push origin tag Release_1_0
+
+Counting objects: 1, done.
+Writing objects: 100% (1/1), 183 bytes, done.
+Total 1 (delta 0), reused 0 (delta 0)
+To gituser@git.server.com:project.git
+* [new tag]
+Release_1_0 −> Release_1_0
+
+```
+
+### View Tags
+gituser1 created tags. Now, gituser2 can view all the available tags by using the Git tag command with –l option.
+
+```js
+
+$ git tag -l
+
+Release_1_0
+
+```
+
+gituser1 uses the Git show command followed by its tag name to view more details about tag.
+
+```js
+$ git show Release_1_0
+
+tag Release_1_0
+Tagger: gituser1 <gituser1@xyz.com>
+Date: Wed Sep 11 13:45:54 2017 +0530
+
+Tagged basic string operation code
+
+
+commit 577647211ed44fe2ae479427a0668a4f12ed71a1
+Author: gituser1 <gituser1@xyz.com>
+Date: Wed Sep 11 10:21:20 2017 +0530
+
+Removed the file successfully
+
+diff --git a/src/test123 b/src/test123
+deleted file mode 100755
+index 654004b..0000000
+Binary files a/src/test123 and /dev/null differ
+
+```
+
+### Delete Tags
+gituser1 uses the following command to delete tags from the local as well as the remote repository.
+
+```js
+$ git tag
+Release_1_0
+
+$ git tag -d Release_1_0
+Deleted tag 'Release_1_0' (was 0f81ff4)
+
+
+# Remove tag from remote repository.
+$ git push origin :Release_1_0
+To gituser@git.server.com:project.git
+- [deleted]
+Release_1_0
+
+```

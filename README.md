@@ -236,3 +236,497 @@ merge.tool=vimdiff
 <p style ="align:center;">
 <img src="https://upload.wikimedia.org/wikipedia/commons/2/29/Git_data_flow.png" alt="Git Life Cycle"></img>
 </p>
+
+## Git - Create Operation
+
+### Create New User
+
+```js
+# add new group
+groupadd dev
+
+# add new user
+useradd -G devs -d /home/gituser -m -s /bin/bash gituser
+
+# change password
+passwd gituser
+
+
+
+//Output of the above command will produce
+Changing password for user gituser.
+New password:
+Retype new password:
+passwd: all authentication token updated successfully.
+```
+
+### Create a Bare Repository
+
+<p>Let us initialize a new repository by using <b>init</b> command followed by <b>--bare</b> option. It initializes the repository without a working directory. By convention, the bare repository must be named as <b>.git</b>.</p>
+
+```js
+$ pwd
+/home/gituser
+
+$ mkdir project.git
+
+$ cd project.git/
+
+$ ls
+
+$ git --bare init
+Initialized empty Git repository in /home/gituser-m/project.git/
+
+$ ls
+branches config description HEAD hooks info objects refs
+
+```
+
+### Push Changes to the Repository
+
+```js
+$ pwd
+/home/gituser
+
+$ mkdir gituser_repo
+
+$ cd gituser_repo/
+
+$ git init
+Initialized empty Git repository in /home/gituser/gituser_repo/.git/
+
+$ echo 'TODO: Add contents for README' > README
+
+$ git status -s
+?? README
+
+$ git add .
+
+$ git status -s
+A README
+
+$ git commit -m 'Initial commit'
+```
+
+<p>checks the log message by executing the git log command.</p>
+
+```js
+$ git log
+
+
+commit 19ae20683fc460db7d127cf201a1429523b0e319
+Author: gituser <gituser@xyz.com>
+Date: Wed Jan 15 07:32:56 2017 +0530
+
+Initial commit
+
+```
+
+
+<b>Note:</b>
+<p>By default, Git pushes only to matching branches: For every branch that exists on the local side, the remote side is updated if a branch with the same name already exists there. In our tutorials, every time we push changes to the <b>origin master</b> branch, use appropriate branch name according to your requirement.</p>
+
+```js
+
+$ git remote add origin gituser@git.server.com:project.git
+
+$ git push origin master
+
+
+//After execution output looks like this
+
+
+Counting objects: 3, done.
+Writing objects: 100% (3/3), 242 bytes, done.
+Total 3 (delta 0), reused 0 (delta 0)
+To gituser@git.server.com:project.git
+* [new branch]
+master −> master
+
+```
+
+## Git - Clone Operation
+
+```js
+mkdir gituser_repo
+
+cd gituser_repo/
+
+$ git clone gituser@git.server.com:project.git
+```
+
+<p>The above command will produce the following result.</p>
+
+```js
+Initialized empty Git repository in /home/gituser/gituser_repo/project/.git/
+remote: Counting objects: 3, done.
+Receiving objects: 100% (3/3), 241 bytes, done.
+remote: Total 3 (delta 0), reused 0 (delta 0)
+```
+
+## Git - Perform Changes
+
+Suppose I have added a content in a file called <b>test.js</b>.
+
+```js
+$ git status -s
+
+?? test.js  
+
+$ git add string.c
+
+
+```
+
+<p>Git is showing a question mark before file names. Obviously, these files are not a part of Git, and that is why Git does not know what to do with these files. That is why, Git is showing a question mark before file names.</p>
+
+<p>gituser has added the file to the stash area, git status command will show files present in the staging area.</p>
+
+```js
+$ git status -s
+
+A test.js
+
+```
+
+<p>To commit the changes, he used the git commit command followed by <b>–m option</b>. If we omit <b>–m option</b>. Git will open a text editor where we can write multiline commit message.</p>
+
+```js
+
+$ git commit -m 'Implemented function of one testcase'
+
+```
+
+The above commit will produce the  following result
+
+```js
+[master cbe1249] Implemented function of one testcase
+1 files changed, 24 insertions(+), 0 deletions(-)
+create mode 100644 test.js
+```
+
+<p>After commit to view log details, he runs the git log command. It will display the information of all the commits with their commit ID, commit author, commit date and <b>SHA-1</b> hash of commit.</p>
+
+## Git - Review Changes
+
+<p>After viewing the commit details, gituser realizes that the string length cannot be negative, that’s why he decides to change the return type of one function.</p>
+
+<p>gituser uses the git log command to view log details.</p>
+
+```js
+
+$ git log
+
+```
+
+<p>The above command will produce the following result.</p>
+
+```js
+
+commit cbe1249b140dad24b2c35b15cc7e26a6f02d2277
+Author: gituser <gituser@xyz.com>
+Date: Wed Sep 11 08:05:26 2013 +0530
+
+Implemented function of one testcase
+
+```
+
+<p>gituser uses the git show command to view the commit details. The git show command takes SHA-1 commit ID as a parameter.</p>
+
+```js
+
+$ git show cbe1249b140dad24b2c35b15cc7e26a6f02d2277
+
+```
+The above command will produce the following ouput
+
+```js
+
+commit cbe1249b140dad24b2c35b15cc7e26a6f02d2277
+Author: gituser <gituser@xyz.com>
+Date: Wed Sep 11 08:05:26 2013 +0530
+
+Implemented my_strlen function
+
+
+diff --git a/test.js b/test.js
+new file mode 100644
+index 0000000..187afb9
+--- /dev/null
++++ b/test.js
+@@ -0,0 +1,24 @@
++var testCondition = false;
++
++function testCaseExecution()
++{
+   +
+   testCondition = true;
+   +
+   +
+   if (testCondition){
+   +   executeSanityTesting();
+   +
+   }
+}
++
+
+```
+
+gituser adds an <b>else</b> part to the above code, user reviews the code by running the <b>git diff</b> command.
+
+```js
+
+$ git diff
+
+```
+
+The above command will produce the following result.
+
+```js
+
+diff --git a/test.js b/test.js
+index 187afb9..7da2992 100644
+--- a/test.js
++++ b/test.js
+@@ -1,6 +1,6 @@
+var testCondition = false;
+
+function testCaseExecution()
+{
+
+   testCondition = true;
+   
+   if (testCondition){
+    executeSanityTesting();
+  
+   -}
+   +}else{
+     + passTheTestCase();
+   +}
+}
+
+```
+
+Git diff shows <b>'+'</b> sign before lines, which are newly added and <b>'−'</b> for deleted lines.
+
+## Git - Commit Changes
+
+gituser has already committed the changes and he wants to correct his last commit. In this case, <b>git amend</b> operation will help. The amend operation changes the last commit including your commit message; it creates a new commit ID.
+
+Before amend operation, he checks the commit log.
+
+```js
+$  git log
+```
+
+The above command will produce the following result.
+
+```js
+
+commit cbe1249b140dad24b2c35b15cc7e26a6f02d2277
+Author: gituser <gituser@xyz.com>
+Date: Wed Sep 11 08:05:26 2013 +0530
+
+Implemented function of one testcase function
+
+```
+
+gituser commits the new changes with -- amend operation and views the commit log.
+
+```js
+
+$ git status -s
+M test.js
+
+$ git add test.c
+
+$ git status -s
+M test.js
+
+$ git commit --amend -m 'Added else part for the the same function.'
+[master d1e19d3] Added else part for the the same function.
+1 files changed, 24 insertions(+), 0 deletions(-)
+create mode 100644 test.js
+
+```
+
+
+## Git - Push Operation
+
+<p>gituser modified his last commit by using the amend operation and he is ready to push the changes. The Push operation stores data permanently to the Git repository. After a successful push operation, other developers can see gituser's changes.
+</p>
+
+gituser is ready to push the code.
+
+```js
+
+$ git push origin master
+
+```
+
+The above command will produce the following result:
+
+```js
+Counting objects: 4, done.
+Compressing objects: 100% (3/3), done.
+Writing objects: 100% (3/3), 517 bytes, done.
+Total 3 (delta 0), reused 0 (delta 0)
+To gituser@git.server.com:project.git
+19ae206..d1e19d3 master −> master
+
+```
+
+## Fetch Latest Changes
+gituser executes the git pull command to synchronize his local repository with the remote one.
+
+```js
+
+$ git pull
+
+```
+
+The above command will produce the following result:
+
+```js
+
+remote: Counting objects: 5, done.
+remote: Compressing objects: 100% (3/3), done.
+remote: Total 3 (delta 1), reused 0 (delta 0)
+Unpacking objects: 100% (3/3), done.
+From git.server.com:project
+d1e19d3..cea2c00 master −> origin/master
+First, rewinding head to replay your work on top of it...
+Applying: Added testcasePass function
+
+```
+
+## Git - Stash Operation
+<p>Suppose you are implementing a new feature for your product. Your code is in progress and suddenly a customer escalation comes. Because of this, you have to keep aside your new feature work for a few hours. You cannot commit your partial code and also cannot throw away your changes. So you need some temporary space, where you can store your partial changes and later on commit it.</p>
+
+In Git, the <b>stash operation</b> takes your modified tracked files, stages changes, and saves them on a stack of unfinished changes that you can reapply at any time.
+
+```js
+$ git status -s
+
+M test.js
+
+```
+
+Now, you want to switch branches for customer escalation, but you don’t want to commit what you’ve been working on yet; so you’ll stash the changes. To push a new stash onto your stack, run the <b>git stash</b> command.
+
+```js
+
+$ git stash
+Saved working directory and index state WIP on master: e86f062 Added testcasePass function
+HEAD is now at e86f062 Added testcasePass function
+
+```
+
+Now, your working directory is clean and all the changes are saved on a stack. Let us verify it with the git status command.
+
+```js
+$ git status -s
+
+Nothing pops up.
+```
+
+Now you can safely switch the branch and work elsewhere. We can view a list of stashed changes by using the <b>git stash list</b> command.
+
+```js
+$ git stash list
+stash@{0}: WIP on master: e86f062 Added testcasePass function
+```
+
+Suppose you have resolved the customer escalation and you are back on your new feature looking for your half-done code, just execute the <b>git stash pop</b> command, to remove the changes from the stack and place them in the current working directory.
+
+```js
+$ git status -s
+
+Nothing pops up.
+
+$ git stash pop
+
+M test.js
+```
+
+
+## Git - Move Operation
+As the name suggests, the move operation moves a directory or a file from one location to another. user decides to move the source code into src directory. The modified directory structure will appear as follows:
+
+```js
+$ pwd
+/home/user/project
+
+$ ls
+README test test.js
+
+$ mkdir src
+
+git mv test.js src/
+
+$ git status -s
+R test.js −> src/test.js
+```
+
+To make these changes permanent, we have to push the modified directory structure to the remote repository so that other developers can see this.
+
+```js
+
+$ git commit -m "Modified directory structure"
+
+[master 7d9ea97] Modified directory structure
+1 files changed, 0 insertions(+), 0 deletions(-)
+rename test.js => src/test.js (100%)
+
+$ git push origin master
+Counting objects: 4, done.
+Compressing objects: 100% (2/2), done.
+Writing objects: 100% (3/3), 320 bytes, done.
+Total 3 (delta 0), reused 0 (delta 0)
+To gituser@git.server.com:project.git
+e86f062..7d9ea97 master −> master
+
+```
+
+## Git - Delete Operation
+
+```js
+
+$ pwd
+/home/gituser/project/src
+
+$ ls
+test.js test123.js
+
+$ git log
+commit 29af9d45947dc044e33d69b9141d8d2dad37cc62
+Author: gituser <gituser123@xyz.com>
+Date: Wed Sep 11 10:16:25 2013 +0530
+
+Added a file test123
+
+```
+
+To remove the file <b>git rm</b> can be used.
+
+```js
+
+$ git rm test123.js
+rm 'src/test123.js'
+
+[tom@CentOS src]$ git commit -a -m "Removed the file successfully"
+
+[master 5776472] Removed the file successfully
+1 files changed, 0 insertions(+), 0 deletions(-)
+delete mode 100755 src/test123.js
+
+```
+
+Now ready to push the code.
+
+```js
+
+$ git push origin master
+
+```
+

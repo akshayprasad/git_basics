@@ -920,3 +920,104 @@ To gituser@git.server.com:project.git
 Release_1_0
 
 ```
+
+## Git - Managing Branches
+
+<p>Branch operation allows creating another line of development. We can use this operation to fork off the development process into two different directions. For example, we released a product for 6.0 version and we might want to create a branch so that the development of 7.0 features can be kept separate from 6.0 bug fixes.</p>
+
+### Create Branch
+gituser1 creates a new branch using the <b>git branch <branch name></b> command. We can create a new branch from an existing one. We can use a specific commit or tag as the starting point. If any specific commit ID is not provided, then the branch will be created with HEAD as its starting point.
+
+```js
+$ git branch new_branch
+
+$ git branch
+* master
+new_branch
+
+```
+
+A new branch is created; gituser1 used the git branch command to list the available branches. Git shows an asterisk mark before currently checked out branch.
+
+The pictorial representation of create branch operation is shown below:
+
+<p style="align:center;">
+<img src="https://www.tutorialspoint.com/git/images/before_branch_create.png" alt="Git branching brief"/>
+</p>
+
+<p style="align:center;">
+<img src="https://www.tutorialspoint.com/git/images/after_branch_create.png" alt="Git branching brief"/>
+</p>
+
+### Switch between Branches
+
+```js
+$ git checkout new_branch
+Switched to branch 'new_branch'
+
+$ git branch
+master
+* new_branch
+
+```
+
+### Shortcut to Create and Switch Branch
+Git provides <b>–b</b> option with the checkout command; this operation creates a new branch and immediately switches to the new branch.
+
+```js
+$ git checkout -b test_branch
+Switched to a new branch 'test_branch'
+
+$ git branch
+master
+new_branch
+* test_branch
+
+```
+
+### Delete a Branch
+A branch can be deleted by providing <b>–D</b> option with git branch command. But before deleting the existing branch, switch to the other branch.
+
+```js
+
+$ git branch
+master
+new_branch
+* test_branch
+
+$ git checkout master
+Switched to branch 'master'
+
+$ git branch -D test_branch
+Deleted branch test_branch (was 5776472).
+
+```
+
+Now, Git will show only two branches.
+
+```js
+$ git branch
+
+* master
+new_branch
+```
+
+### Rename a Branch
+user decides to add support for wide characters in his string operations project. He has already created a new branch, but the branch name is not appropriate. So he changes the branch name by using <b>–m</b> option followed by the <b>old branch name</b> and <b>the new branch name</b>.
+
+```js
+$ git branch
+* master
+new_branch
+
+$ git branch -m new_branch wchar_support
+
+```
+
+Now, the git branch command will show the new branch name.
+
+```js
+$ git branch
+* master
+wchar_support
+```

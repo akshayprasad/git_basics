@@ -764,6 +764,10 @@ Nothing popups
 <img src="https://www.tutorialspoint.com/git/images/before_git_reset.png" alt="Git reset brief"/>
 </p>
 
+<p style="align:center;">
+<img src="https://www.tutorialspoint.com/git/images/after_git_reset.png" alt="Git reset brief"/>
+</p>
+
 ### Soft
 Each branch has a HEAD pointer, which points to the latest commit. If we use Git reset command with --soft option followed by commit ID, then it will reset the HEAD pointer only without destroying anything.
 

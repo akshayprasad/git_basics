@@ -1053,4 +1053,26 @@ The Git rebase command tries to find out the common ancestor between the current
 When multiple developers work on a single remote repository, you cannot modify the order of the commits in the remote repository. In this situation, you can use rebase operation to put your local commits on top of the remote repository commits and you can push these changes.
 
 
+## Git - Different Platforms
+
+GNU/Linux and Mac OS uses <b>line-feed (LF)</b>, or new line as line ending character, while Windows uses <b>line-feed and carriage-return (LFCR)</b> combination to represent the line-ending character.
+
+To avoid unnecessary commits because of these line-ending differences, we have to configure the Git client to write the same line ending to the Git repository.
+
+For Windows system, we can configure the Git client to convert line endings to <b>CRLF</b> format while checking out, and convert them back to LF format during the commit operation. The following settings will do the needful.
+
+```js
+
+$ git config --global core.autocrlf true
+
+```
+
+<p>For GNU/Linux or Mac OS, we can configure the Git client to convert line endings from CRLF to LF while performing the checkout operation.</p>
+
+```js
+
+$ git config --global core.autocrlf input
+
+```
+
 <h3>To be continued....... </h3>

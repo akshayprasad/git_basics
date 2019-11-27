@@ -3,7 +3,7 @@ Described the basics of git
 
 <p align="center">
   <a>
-    <img  src="https://www.ithands.com/blog/wp-content/uploads/2016/10/ITH_Managing-Code-in-GIT.jpg">
+    <img  src="https://hackernoon.com/hn-images/1*9qX9F9MGsWKfcmgTOR9BPw.png">
   </a>
   <p align="center">** Hands-on Git **</p>
 </p>
